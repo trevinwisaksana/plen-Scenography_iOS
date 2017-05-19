@@ -23,6 +23,9 @@ class PlenMotionPageViewController: UIViewController, CAPSPageMenuDelegate {
     var pageMenu: CAPSPageMenu!
     // Array to keep track of controllers in page menu
     var controllerArray: [PlenMotionTableViewController] = []
+    // Keeps track if the page menu has already been setup
+    // reloadDataCount is used to count how many times reloadData is called
+    var reloadDataCount = 0
     
     // MARK: - RxSwift
     let rx_motionCategories = Variable([PlenMotionCategory]())
@@ -49,13 +52,8 @@ class PlenMotionPageViewController: UIViewController, CAPSPageMenuDelegate {
     // MARK: – Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Reload data
         initBindings()
-        
-        // Sets up the page menu
-        pageMenuSetup()
-        
         // Assigning the delegate
         pageMenu.delegate = self
     }
@@ -82,6 +80,12 @@ class PlenMotionPageViewController: UIViewController, CAPSPageMenuDelegate {
             return controller
         }
         
+        if reloadDataCount < 2 {
+            // Displays the cells on the page menu
+            pageMenuSetup()
+            // Allows this portion of code to run twice
+            reloadDataCount += 1
+        }
     }
     
     // MARK: - Methods
@@ -113,6 +117,5 @@ class PlenMotionPageViewController: UIViewController, CAPSPageMenuDelegate {
     func didMoveToPage(_ controller: UIViewController, index: Int) {
         
     }
-
 
 }
