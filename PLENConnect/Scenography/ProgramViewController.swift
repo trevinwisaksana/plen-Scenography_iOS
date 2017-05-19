@@ -30,7 +30,7 @@ class ProgramViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var leftContainer: UIView!
     @IBOutlet weak var rightContainer: UIView!
     
-    // MARK: - Variables and Constants
+    // MARK: - Variables
     fileprivate var programViewController: PlenProgramViewController!
     fileprivate var motionPageViewController: PlenMotionPageViewController!
     fileprivate var connectionLogs = [String: PlenConnectionLog]()
@@ -65,25 +65,16 @@ class ProgramViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         // motion page view
-        motionPageViewController = UIViewControllerUtil.loadChildViewController(self,
+        motionPageViewController = UIViewControllerUtil.loadChildViewController(
+            self,
             container: rightContainer,
-            childType: PlenMotionPageViewController.self)
+            childType: PlenMotionPageViewController.self
+        )
         
         motionPageViewController.motionCategories = try! loadMotionCategories()
         
         // title
         programTitle.font = UIFont(name: "HelveticaNeue", size: 10)
-        
-        // layout
-        let tabBar = motionPageViewController.tabBar
-        tabBarHolder.addSubview(tabBar!)
-        
-        let views = ["tabBar": motionPageViewController.tabBar]
-        tabBar?.translatesAutoresizingMaskIntoConstraints = false
-        UIViewUtil.constrain(
-            by: tabBarHolder,
-            formats: ["H:|-(-1)-[tabBar]-(-1)-|", "V:|[tabBar]|"],
-            views: views as [String : AnyObject])
         
         makeShadow(tabBarHolder.layer)
         makeShadow(programTitleHolder.layer)
@@ -184,7 +175,6 @@ class ProgramViewController: UIViewController, UIGestureRecognizerDelegate {
         
         switch leftContainerMode {
         case .program:
-            motionPageViewController.draggable = true
             programTitle.text = "PROGRAM"
             
             programViewController = UIViewControllerUtil.loadChildViewController(self,

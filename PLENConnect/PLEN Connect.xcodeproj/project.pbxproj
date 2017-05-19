@@ -33,7 +33,6 @@
 		F81542F81C8E3F3700E41185 /* PlenMotionTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81542E41C8E3F3700E41185 /* PlenMotionTableViewController.xib */; };
 		F81542F91C8E3F3700E41185 /* PlenMotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81542E51C8E3F3700E41185 /* PlenMotionView.swift */; };
 		F81542FA1C8E3F3700E41185 /* PlenMotionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F81542E61C8E3F3700E41185 /* PlenMotionView.xib */; };
-		F81542FB1C8E3F3700E41185 /* PLPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81542E71C8E3F3700E41185 /* PLPageViewController.swift */; };
 		F81542FC1C8E3F3700E41185 /* RxUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81542E81C8E3F3700E41185 /* RxUtils.swift */; };
 		F81542FD1C8E3F3700E41185 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81542E91C8E3F3700E41185 /* Constants.swift */; };
 		F81542FE1C8E3F3700E41185 /* SwiftUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81542EA1C8E3F3700E41185 /* SwiftUtils.swift */; };
@@ -118,7 +117,6 @@
 		F81542E41C8E3F3700E41185 /* PlenMotionTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlenMotionTableViewController.xib; sourceTree = "<group>"; };
 		F81542E51C8E3F3700E41185 /* PlenMotionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlenMotionView.swift; sourceTree = "<group>"; };
 		F81542E61C8E3F3700E41185 /* PlenMotionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlenMotionView.xib; sourceTree = "<group>"; };
-		F81542E71C8E3F3700E41185 /* PLPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLPageViewController.swift; sourceTree = "<group>"; };
 		F81542E81C8E3F3700E41185 /* RxUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxUtils.swift; sourceTree = "<group>"; };
 		F81542E91C8E3F3700E41185 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F81542EA1C8E3F3700E41185 /* SwiftUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUtils.swift; sourceTree = "<group>"; };
@@ -272,6 +270,14 @@
 			name = PlenMotionView;
 			sourceTree = "<group>";
 		};
+		DD23285B1ECF327B001E2419 /* ProgramViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F81542AC1C8E3E5200E41185 /* ProgramViewController.swift */,
+			);
+			name = ProgramViewController;
+			sourceTree = "<group>";
+		};
 		DDAFC4631ECD9C710078A25C /* DragEvent */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,8 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				DD224C161E9EFA67005B88D8 /* ConnectViewController */,
-				F81542AC1C8E3E5200E41185 /* ProgramViewController.swift */,
-				F81542E71C8E3F3700E41185 /* PLPageViewController.swift */,
+				DD23285B1ECF327B001E2419 /* ProgramViewController */,
 				DD224C0F1E9EF81C005B88D8 /* PlenMotionPageViewController */,
 				DD224C101E9EF830005B88D8 /* PlenMotionTableViewController */,
 				DD224C111E9EF83D005B88D8 /* PlenProgramViewController */,
@@ -745,7 +750,6 @@
 				F8A4B2AD1C9AC94C00F46573 /* PlenConnectionLog.swift in Sources */,
 				F81542F51C8E3F3700E41185 /* PlenMotionCell.swift in Sources */,
 				F81542AB1C8E3E5200E41185 /* AppDelegate.swift in Sources */,
-				F81542FB1C8E3F3700E41185 /* PLPageViewController.swift in Sources */,
 				F81542FE1C8E3F3700E41185 /* SwiftUtils.swift in Sources */,
 				F87962591C8F375800ADF45D /* PlenProgram.swift in Sources */,
 				DDD865141EC53FA200C4FBE3 /* PlenAlert.swift in Sources */,

@@ -16,12 +16,18 @@ class PlenMotionTableViewController: UITableViewController, DragGestureRecognize
     
     let rx_motionCategory = Variable(PlenMotionCategory.Empty)
     var motionCategory: PlenMotionCategory {
-        get {return rx_motionCategory.value}
-        set(value) {rx_motionCategory.value = value}
+        get {
+            return rx_motionCategory.value
+        }
+        set(value) {
+            rx_motionCategory.value = value
+        }
     }
     
     var draggable = true {
-        didSet {tableView.reloadData()}
+        didSet {
+            tableView.reloadData()
+        }
     }
     
     fileprivate let _disposeBag = DisposeBag()
@@ -37,10 +43,9 @@ class PlenMotionTableViewController: UITableViewController, DragGestureRecognize
     
     fileprivate func initBindings() {
         // auto reloadData
-        rx_motionCategory.asObservable()
-            .distinctUntilChanged()
-            .subscribe(onNext: {[weak self] _ in self?.tableView.reloadData()})
-            .addDisposableTo(_disposeBag)
+        rx_motionCategory.asObservable().distinctUntilChanged()
+            .subscribe(onNext: { [weak self] _ in self?.tableView.reloadData()
+            }).addDisposableTo(_disposeBag)
     }
     
     
@@ -89,7 +94,7 @@ class PlenMotionTableViewController: UITableViewController, DragGestureRecognize
     func dragGestureRecognizerTargetShouldCreateDragShadow(_ target: DragGestureRecognizerTarget, gestureRecognizer: UIGestureRecognizer) -> UIView? {
         // TODO: Don't repeat yourself
         
-        guard draggable else {return nil}
+        guard draggable else { return nil }
         
         let location = gestureRecognizer.location(in: tableView)
         
@@ -100,7 +105,7 @@ class PlenMotionTableViewController: UITableViewController, DragGestureRecognize
             .flatMap {$0.last as? UIButton}
             .filter {$0.point(inside: gestureRecognizer.location(in: $0), with: nil)}
         
-        guard touchedButtons.isEmpty else {return nil}
+        guard touchedButtons.isEmpty else { return nil }
         
         let dragShadow = UIViewUtil.loadXib(Cell.self)!
         

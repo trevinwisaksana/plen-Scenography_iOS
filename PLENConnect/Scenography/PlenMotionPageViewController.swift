@@ -9,81 +9,110 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import PageMenu
 
-class PlenMotionPageViewController: PLPageViewController, PLPageViewControllerDataSource, PLPageViewControllerDelegate {
+enum PLTabStyle {
+    case none
+    case inactiveFaded(fadedAlpha: CGFloat)
+}
+
+
+class PlenMotionPageViewController: UIViewController, CAPSPageMenuDelegate {
     
-    // MARK: - Variables
-    override var tabIndicatorColor: UIColor {
-        return Constants.Color.ScenographyWhite
-    }
+    // MARK: - PageMenu
+    var pageMenu: CAPSPageMenu!
+    // Array to keep track of controllers in page menu
+    var controllerArray: [PlenMotionTableViewController] = []
     
+    // MARK: - RxSwift
     let rx_motionCategories = Variable([PlenMotionCategory]())
     
     var motionCategories: [PlenMotionCategory] {
-        get {return rx_motionCategories.value}
-        set(value) {rx_motionCategories.value = value}
-    }
-    
-    var draggable = true {
-        didSet {reloadData()}
+        get {
+            return rx_motionCategories.value
+        } set(value) {
+            rx_motionCategories.value = value
+        }
     }
     
     fileprivate let _disposeBag = DisposeBag()
     
-    fileprivate var _controllers = [PlenMotionTableViewController]()
+    
+    // MARK: - Variables
+    var draggable = true {
+        didSet {
+            reloadData()
+        }
+    }
+    
     
     // MARK: – Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.datasource = self
-        self.delegate = self
         
+        // Reload data
         initBindings()
+        
+        // Sets up the page menu
+        pageMenuSetup()
+        
+        // Assigning the delegate
+        pageMenu.delegate = self
     }
+    
     
     // MARK: - Methods
+    /// Auto reload data
     fileprivate func initBindings() {
-        // auto reloadData
-        rx_motionCategories.asObservable()
-            .bindNext {[weak self] _ in self?.reloadData()}
-            .addDisposableTo(_disposeBag)
-    }
-
-    func numberOfPagesForViewController(_ pageViewController: PLPageViewController) -> Int {
-        return motionCategories.count
-    }
-
-    func tabViewForPageAtIndex(_ pageViewController: PLPageViewController, index: Int) -> UIView {
-        let tabTitle = UILabel()
-        tabTitle.text = motionCategories[index].name
-        tabTitle.font = UIFont(name: "HelveticaNeue", size: 10)
-        tabTitle.sizeToFit()
-        tabTitle.textColor = UIColor.white
-        return tabTitle
+        rx_motionCategories.asObservable().bindNext { [weak self] _ in
+            self?.reloadData()
+        }.addDisposableTo(_disposeBag)
     }
     
-    func viewControllerForPageAtIndex(_ pageViewController: PLPageViewController, index: Int) -> UIViewController? {
-        return _controllers[index]
-    }
     
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        reloadData()
-        tabBar?.alpha = 1
-    }
-    
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        tabBar?.alpha = 0
-    }
-    
-    override func reloadData() {
-        _controllers = motionCategories.map {
+    fileprivate func reloadData() {
+        
+        controllerArray = motionCategories.map {
+            
             let controller = UIViewControllerUtil.loadXib(PlenMotionTableViewController.self)
+            
             controller.motionCategory = $0
             controller.draggable = draggable
+            
             return controller
         }
         
-        super.reloadData()
     }
+    
+    // MARK: - Methods
+    func pageMenuSetup() {
+        
+        let frame = CGRect(
+            x: 0,
+            y: 0,
+            width: self.view.frame.width,
+            height: self.view.frame.height
+        )
+        
+        pageMenu = CAPSPageMenu(
+            viewControllers: controllerArray,
+            frame: frame,
+            pageMenuOptions: nil
+        )
+        
+        guard let pageMenu = pageMenu else { return }
+        
+        self.view.addSubview(pageMenu.view)
+    }
+    
+    func willMoveToPage(_ controller: UIViewController, index: Int) {
+        
+    }
+    
+    
+    func didMoveToPage(_ controller: UIViewController, index: Int) {
+        
+    }
+
+
 }
