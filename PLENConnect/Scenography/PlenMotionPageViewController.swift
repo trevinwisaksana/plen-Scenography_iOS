@@ -20,8 +20,11 @@ class PlenMotionPageViewController: PLPageViewController, PLPageViewControllerDa
     let rx_motionCategories = Variable([PlenMotionCategory]())
     
     var motionCategories: [PlenMotionCategory] {
-        get {return rx_motionCategories.value}
-        set(value) {rx_motionCategories.value = value}
+        get {
+            return rx_motionCategories.value
+        } set(value) {
+            rx_motionCategories.value = value
+        }
     }
     
     var draggable = true {
